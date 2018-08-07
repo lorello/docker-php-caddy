@@ -1,0 +1,18 @@
+version: '3.4'
+
+# This is a production ready docker-compose Dockerfile
+# in a development environment use the overriding capabilities of
+# docker-compose adding your local changes to docker-compose.override.yml
+
+services:
+  app:
+    image: registry.gitlab.com/lorello/docker-php:latest
+    restart: unless-stopped
+    deploy:
+      resources:
+        cpus: 1
+        mem_limit: '256m'
+        mem_reservation: '128m'
+    ports:
+      - 2015
+

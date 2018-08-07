@@ -1,0 +1,38 @@
+version: '3.4'
+
+services:
+
+  # official php5-fpm image with Caddy as webserver
+  # see https://hub.docker.com/_/php/ for php options and info about
+  # installing more extensions
+  # original Caddyfile comes from https://bitpress.io/caddy-with-docker-and-php/
+  # for more info on caddy webserver starts from 
+  # https://caddyserver.com/tutorial/caddyfile
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 2015:2015
+    volumes:
+      - .:/srv/app
+      - ./php/php.ini-dev:/usr/local/etc/php/php.ini:ro
+    depends_on:
+      - db
+
+  # for all config options see also: https://hub.docker.com/_/mysql/
+  db:
+    image: mysql:5.8
+    environment:
+      MYSQL_DATABASE: 'test'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+      - db-data:/var/lib/mysql:rw
+
+volumes:
+  db-data:
+
+
