@@ -1,4 +1,5 @@
 # PHP  
+[![pipeline status](https://gitlab.com/lorello/docker-php-caddy/badges/master/pipeline.svg)](https://github.com/lorello/docker-php-caddy/commits/master)
 
 ## Local development environment
 
